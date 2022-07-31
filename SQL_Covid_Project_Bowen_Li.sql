@@ -144,6 +144,7 @@ where Death.continent is not null and death.location like '%Canada'
 select *,RollingPeoploeVaccinated/Population*100 As PerOfPeopleVaccinated
 from #temp_PopulationVsVacci
 order by PerOfPeopleVaccinated
+GO
 
 
 --Creating view to store data for later visulizations
@@ -158,9 +159,34 @@ and Death.date = Vacci.date
 where Death.continent is not null and death.location like '%Canada'
 --order by 2,3
 
-select *
-from PerOfPeopleVaccinated
 --Now we can use PerOfPeopleVaccinated for later use
 --For example later graph
+select *
+from PerOfPeopleVaccinated
+GO
 
 
+
+--Another View that can be use to show how death rate change by time
+--DeathRate = totalDeath/totalCase
+Create view DeathPerCaseCanada AS
+Select location,date,total_cases,total_deaths,(total_deaths/total_cases)*100 AS DeathPerCase
+from PortfolioProject..CovidDeath$
+where location like '%Canada'
+--order by 1,2
+
+select *
+from DeathPerCaseCanada
+GO
+
+--Next View: Percentage of Canadian caught coivd by now
+-- The TotalCase/TotalPopulation Rate
+create view CasePerPopCanada AS
+Select location,date,total_cases,population,(total_cases/population)*100 AS CasePercentagePerPopulation
+from PortfolioProject..CovidDeath$
+where location like '%Canada' 
+--and (total_cases/population)*100 >= 1
+--order by 1,2
+
+select *
+from CasePerPopCanada
