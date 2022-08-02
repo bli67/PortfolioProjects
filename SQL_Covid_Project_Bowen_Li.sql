@@ -158,6 +158,7 @@ on Death.location = Vacci.location
 and Death.date = Vacci.date
 where Death.continent is not null and death.location like '%Canada'
 --order by 2,3
+go
 
 --Now we can use PerOfPeopleVaccinated for later use
 --For example later graph
@@ -174,6 +175,7 @@ Select location,date,total_cases,total_deaths,(total_deaths/total_cases)*100 AS 
 from PortfolioProject..CovidDeath$
 where location like '%Canada'
 --order by 1,2
+go
 
 select *
 from DeathPerCaseCanada
@@ -187,6 +189,7 @@ from PortfolioProject..CovidDeath$
 where location like '%Canada' 
 --and (total_cases/population)*100 >= 1
 --order by 1,2
+go
 
 select *
 from CasePerPopCanada
